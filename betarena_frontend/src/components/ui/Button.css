@@ -1,0 +1,32 @@
+.btn {
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.btn-primary {
+  background: linear-gradient(90deg, #38b6ff 0%, #6d28d9 100%);
+  color: white;
+  border: none;
+}
+
+
+.btn-primary:hover {
+  filter: brightness(1.15);
+  box-shadow: 0 2px 8px rgba(56,182,255,0.15);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 1px solid #6c42f5;
+  color: #6c42f5;
+}
+
+.btn-outline:hover {
+  background-color: #6c42f5;
+  color: white;
+}

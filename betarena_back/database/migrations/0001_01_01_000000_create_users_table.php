@@ -14,10 +14,19 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('pseudo')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['admin', 'player', 'maintainer'])->default('player'); 
             $table->rememberToken();
+            // Leaderboard stats
+            $table->integer('score')->default(0);
+            $table->integer('points')->default(0);
+            $table->integer('bets_count')->default(0);
+            $table->integer('tournaments_won')->default(0);
+            $table->integer('clans_won')->default(0);
+            $table->integer('rank')->default(0);
             $table->timestamps();
         });
 
