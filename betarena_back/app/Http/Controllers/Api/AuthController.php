@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Account;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 
+
 class AuthController extends Controller
 {
-
-    use ThrottlesLogins;
 
     // Enregistrement
     public function register(Request $request)
@@ -62,40 +62,30 @@ class AuthController extends Controller
     {
         return 2; // bloqué 2 minutes
     }
-
+    
+    protected function username()
+    {
+        return 'identifiant'; // car tu valides "identifiant" dans ton login
+    }
+    
     public function login(Request $request)
     {
-
         $request->validate([
             'identifiant' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // Vérifie si l'utilisateur a dépassé les tentatives échouées
-        if ($this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            $seconds = $this->limiter()->availableIn(
-                $this->throttleKey($request)
-            );
-            return response()->json([
-                'message' => "Trop de tentatives. Réessayez dans $seconds secondes."
-            ], 429);
-        }
-
-
+        // Cherche l'utilisateur par email ou pseudo
         $user = User::where('email', $request->identifiant)
             ->orWhere('pseudo', $request->identifiant)
             ->first();
 
+        // Vérifie le mot de passe
         if (!$user || !Hash::check($request->password, $user->password)) {
-            // Compte cette tentative échouée
-            $this->incrementLoginAttempts($request);
             return response()->json(['message' => 'Identifiants invalides'], 401);
         }
 
-        // Si login réussi, réinitialise le compteur
-        $this->clearLoginAttempts($request);
-
+        // Crée un token si login réussi
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -104,7 +94,6 @@ class AuthController extends Controller
             'token' => $token,
         ]);
     }
-
 
     // Déconnexion
     public function logout(Request $request)
@@ -118,4 +107,5 @@ class AuthController extends Controller
     {
         return response()->json($request->user());
     }
+    
 }

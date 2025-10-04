@@ -2,17 +2,17 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Api\AuthController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use App\Http\Controllers\BetController;
-use App\Http\Controllers\BetPlayerController;
-use App\Http\Controllers\AccountController;
-use App\Http\Controllers\TournamentController;
-use App\Http\Controllers\ClanController;
-use App\Http\Controllers\AffiliateController;
-use App\Http\Controllers\MessageController;
-use App\Http\Controllers\GroupConversationController;
-use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\Api\BetController;
+use App\Http\Controllers\Api\BetPlayerController;
+use App\Http\Controllers\Api\AccountController;
+use App\Http\Controllers\Api\TournamentController;
+use App\Http\Controllers\Api\ClanController;
+use App\Http\Controllers\Api\AffiliateController;
+use App\Http\Controllers\Api\MessageController;
+use App\Http\Controllers\Api\GroupConversationController;
+use App\Http\Controllers\Api\LeaderboardController;
 
 
 // Route pour tester l'utilisateur connecté (authentifié)
@@ -74,7 +74,7 @@ Route::middleware(['auth:sanctum','verified'])->prefix('accounts')->group(functi
     Route::post('/{id}/deposit', [AccountController::class, 'deposit']);
     Route::post('/{id}/withdraw', [AccountController::class, 'withdraw']);
     Route::post('/{id}/transfer', [AccountController::class, 'transfer']);
-    Route::get('/accounts/me/balance', [AccountController::class, 'myBalance']);
+    Route::get('/me/balance', [AccountController::class, 'myBalance']);
     Route::patch('/{id}/status', [AccountController::class, 'updateStatus']);
     Route::delete('/{id}', [AccountController::class, 'destroy']);
 });

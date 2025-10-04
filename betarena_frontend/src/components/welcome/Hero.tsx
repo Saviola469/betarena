@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 
 const Hero = () => (
-  <section className="hero">
+  <section className="hero" style={{ background: 'none', color: '#374151' }}>
     <div className="container">
       <h1>L'arène des paris entre gamers</h1>
       <p>Affrontez d'autres joueurs, déposez votre mise, et remportez le pot grâce à notre système sécurisé d'escrow.</p>

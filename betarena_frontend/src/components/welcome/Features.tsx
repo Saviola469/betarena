@@ -2,7 +2,7 @@ import React from 'react';
 import '../../App.css';
 
 const Features = () => (
-  <section className="features">
+  <section className="features" style={{ background: 'none', color: '#374151' }}>
     <div className="container">
       <h2 className="section-title">Comment ça marche</h2>
       <div className="features-grid">

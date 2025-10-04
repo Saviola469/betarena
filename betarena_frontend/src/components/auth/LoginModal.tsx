@@ -9,7 +9,7 @@ interface LoginModalProps {
 }
 
 const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess }) => {
-  const [identifier, setIdentifier] = useState('');
+  const [identifiant, setIdentifiant] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -19,12 +19,12 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch('/api/login', {
+      const response = await fetch('http://localhost:8000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ identifier, password }),
+        body: JSON.stringify({ identifiant, password }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -45,13 +45,13 @@ const LoginModal: React.FC<LoginModalProps> = ({ isOpen, onClose, onLoginSuccess
       <form className="login-modal-form" onSubmit={handleSubmit}>
         <h2>Connexion</h2>
         <div className="form-group">
-          <label htmlFor="identifier">Identifiant</label>
+          <label htmlFor="identifiant">Identifiant</label>
           <input
-            id="identifier"
+            id="identifiant"
             type="text"
             placeholder="Email ou Pseudo"
-            value={identifier}
-            onChange={e => setIdentifier(e.target.value)}
+            value={identifiant}
+            onChange={e => setIdentifiant(e.target.value)}
             required
             autoFocus
           />
